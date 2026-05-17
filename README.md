@@ -18,6 +18,7 @@ cd book-translation-experiement
 
 ### 2. Set your API key
 Create a .env file in the project root (same folder as docker-compose.yml):
+
 DEEPSEEK_API_KEY=your_api_key_here
 
 ### 3. Start MongoDB replica set (first time only)
