@@ -2,10 +2,10 @@
 Upload a PDF book, translate it to another language with AI, and download the translated PDF.
 ## What it does
 1. **Upload** – You send a PDF through the web page.
-2. **Convert** – The PDF is turned into Markdown (text + images).
+2. **Convert** – The PDF is converted into Markdown (text + images).
 3. **Translate** – The text is translated using the DeepSeek API.
-4. **Render** – The translated text is turned back into a PDF.
-5. **Download** – When the job is done, you download the new PDF.
+4. **Render** – The translated text is reconverted into a PDF.
+5. **Download** – When the job is completed, you download the new PDF.
 
 ## What you need
 - [Docker](https://www.docker.com/) and Docker Compose
