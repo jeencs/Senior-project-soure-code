@@ -9,6 +9,8 @@ Upload a PDF book, translate it to another language with AI, and download the tr
 
 ## What you need
 - [Docker](https://www.docker.com/) and Docker Compose
+- [Node.js](https://nodejs.org/) (includes **npm**) 20.x for Web app and API (`app/`)
+- [Python](https://www.python.org/) version 3.11+ for Converter, orchestrator, and renderer services
 - A [DeepSeek](https://platform.deepseek.com/) API key (for translation)
   
 ## Quick start
