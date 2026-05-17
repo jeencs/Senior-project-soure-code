@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+aio-pika
+motor>=3.7.1
+minio
+httpx
+pydantic>=2.7.0
+python-dotenv
+tiktoken

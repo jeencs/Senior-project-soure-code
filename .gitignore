@@ -1,0 +1,31 @@
+# Java
+target/
+*.class
+*.jar
+*.war
+*.ear
+.mvn/
+.metadata/
+bin/
+tmp/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+.env
+
+# Docker
+.docker/
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

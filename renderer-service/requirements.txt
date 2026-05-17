@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+aio-pika
+motor>=3.7.1
+minio
+pydantic>=2.7.0

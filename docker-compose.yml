@@ -1,0 +1,99 @@
+
+services:
+  app:
+    build: ./app
+    ports:
+      - "8080:8080"
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/translation_db?replicaSet=rs0
+      MINIO_ENDPOINT: minio
+      MINIO_PORT: 9000
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+      CONVERTER_SERVICE_URL: http://converter-service:8000
+      ORCHESTRATOR_SERVICE_URL: http://orchestrator-service:8001
+      RENDERER_SERVICE_URL: http://renderer-service:8002
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      minio:
+        condition: service_started
+
+  converter-service:
+    build: ./converter-service
+    ports:
+      - "8000:8000"
+    environment:
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+      MONGO_URI: mongodb://mongodb:27017/?replicaSet=rs0
+
+  orchestrator-service:
+    build: ./orchestrator-service
+    ports:
+      - "8001:8001"
+    environment:
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+      MONGO_URI: mongodb://mongodb:27017/?replicaSet=rs0
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+      DEEPSEEK_HTTP_TIMEOUT_SECONDS: ${DEEPSEEK_HTTP_TIMEOUT_SECONDS:-600}
+    depends_on:
+      mongodb:
+        condition: service_healthy
+
+  renderer-service:
+    build: ./renderer-service
+    ports:
+      - "8002:8002"
+    environment:
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+      MONGO_URI: mongodb://mongodb:27017/?replicaSet=rs0
+    depends_on:
+      mongodb:
+        condition: service_healthy
+
+  mongodb:
+    image: mongo:7
+    command: mongod --replSet rs0 --bind_ip_all
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  minio:
+    image: minio/minio:latest
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+      
+  mongo-express:
+    image: mongo-express:latest
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_URL: mongodb://mongodb:27017/?replicaSet=rs0
+    depends_on:
+      mongodb:
+        condition: service_healthy
+
+volumes:
+  mongodb_data:
+  minio_data:
