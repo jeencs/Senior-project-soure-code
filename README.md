@@ -1,4 +1,4 @@
-# Book Translation Experiment
+# End-to-End Book Translation
 Upload a PDF book, translate it to another language with AI, and download the translated PDF.
 ## What it does
 1. **Upload** – You send a PDF through the web page.
