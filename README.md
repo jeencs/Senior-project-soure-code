@@ -35,15 +35,16 @@ Use **My Jobs** to check progress and download the result when status is **COMPL
 
 ## Services (ports)
 
-**Service**    **Port**	   **Purpose**
-Web app	      8080	 Upload PDFs and manage jobs
-Converter 	  8000	 PDF → Markdown
-Orchestrator  8001	 AI translation
-Renderer	    8002	 Markdown → PDF
-MinIO (files)	9000	 File storage
-MinIO console	9001	 Storage admin UI
-Mongo Express	8081	 Database admin UI (optional)
-MongoDB	      27017	 Job and metadata storage
+| Service         | Port   | Purpose                        |
+|----------------|--------|--------------------------------|
+| Web app         | 8080   | Upload PDFs and manage jobs    |
+| Converter       | 8000   | PDF → Markdown                 |
+| Orchestrator    | 8001   | AI translation                 |
+| Renderer        | 8002   | Markdown → PDF                 |
+| MinIO (files)   | 9000   | File storage                   |
+| MinIO console   | 9001   | Storage admin UI               |
+| Mongo Express   | 8081   | Database admin UI (optional)   |
+| MongoDB         | 27017  | Job and metadata storage       |
 
 Default MinIO login: minioadmin / minioadmin
 
